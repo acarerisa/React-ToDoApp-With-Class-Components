@@ -27,11 +27,32 @@ export default class ToDoApp extends Component {
            })
        }
     }
+
+    removeTodo = (name)=>{
+        const filtered = this.state.tasks.filter(task=>task.name!==name)
+        this.setState({
+            tasks:filtered
+        })
+    }
+    
+    cizToDo = (name)=>{
+        const yeni = this.state.tasks.map(task=>{
+            if(task.name === name){
+                task.done=!task.done
+            }
+            return task
+        })
+        this.setState({
+            tasks:yeni,
+        })
+    }
     render() {
         return (
             <div>
                 <ToDo addToDo={this.addToDo}/>
-              <ToDoList tasks = {this.state.tasks} />  
+              <ToDoList cizToDo={this.cizToDo}
+              removeToDo={this.removeTodo}
+              tasks = {this.state.tasks} />  
             </div>
         )
     }
